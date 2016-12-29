@@ -1,0 +1,15 @@
+require "dry-struct"
+
+require_relative "base_types"
+
+class ApiType < Dry::Struct
+  constructor_type :strict
+
+  class << self
+    attr_accessor :type_description
+
+    def description(descriptor)
+      @type_description = descriptor
+    end
+  end
+end

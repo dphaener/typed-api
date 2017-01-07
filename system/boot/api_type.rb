@@ -2,7 +2,7 @@ require "dry-struct"
 
 require_relative "base_types"
 
-class ApiType < Dry::Struct
+class ApiType < Dry::Struct::Value
   constructor_type :strict
 
   class << self

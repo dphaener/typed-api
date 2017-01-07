@@ -1,10 +1,15 @@
 TypedAPI.finalize(:persistence) do |persistence|
   init do
-    require 'sequel'
+    require "rom"
+    require "rom-sql"
   end
 
   start do
-    persistence.register('persistence.db', Sequel.connect('sqlite::memory'))
+    configuration = ROM::Configuration.new(:sqlite, "sqlite::memory")
+    configuration.auto_load("../../db")
+    container = ROM.container(configuration)
+
+    persistence.register('persistence.db', container)
   end
 
   stop do

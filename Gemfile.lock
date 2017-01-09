@@ -70,6 +70,10 @@ GEM
       dry-equalizer (~> 0.2)
       rom-support (~> 2.0.0)
       transproc (~> 0.4.0)
+    rom-repository (0.3.1)
+      rom (~> 2.0)
+      rom-mapper (~> 0.4)
+      rom-support (~> 2.0)
     rom-sql (0.9.1)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
@@ -114,6 +118,7 @@ DEPENDENCIES
   pry
   rake
   rom
+  rom-repository
   rom-sql
   shotgun
   sinatra

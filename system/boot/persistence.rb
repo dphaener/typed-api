@@ -1,12 +1,14 @@
 TypedAPI.finalize(:persistence) do |persistence|
   init do
-    require "rom"
     require "rom-sql"
+    require_relative "#{Dir.pwd}/app/types/user/relation"
+    require_relative "#{Dir.pwd}/app/types/todo/relation"
   end
 
   start do
-    configuration = ROM::Configuration.new(:sqlite, "sqlite::memory")
-    configuration.auto_load("../../db")
+    configuration = ROM::Configuration.new(:sql, "sqlite://#{Dir.pwd}/sqlite.db")
+    configuration.register_relation(Relations::Users)
+    configuration.register_relation(Relations::Todos)
     container = ROM.container(configuration)
 
     persistence.register('persistence.db', container)

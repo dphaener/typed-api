@@ -1,9 +1,9 @@
 require "dry-container"
 
 require_relative "query"
-require_relative "schema"
 require_relative "types"
 require_relative "../import"
+require_relative "../../config/schema"
 
 module Graph
   class Container
@@ -11,11 +11,12 @@ module Graph
 
     Import["persistence.db"]
 
-    TYPES = Dir["./types/*.rb"]
+    TYPES = Dir["./app/types/**/definition.rb"]
 
     register("query") { Graph::Query.new }
     register("types") { Graph::Types.new }
+    register("schema") { Schema.new }
 
-    resolve("types").(TYPES)
+    resolve("types").(TYPES, Graph::Container)
   end
 end

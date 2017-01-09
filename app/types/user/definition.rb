@@ -6,6 +6,6 @@ module User
 
     attribute :email, Types::Email
     attribute :first_name, Types::Strict::String
-    attribute :last_name, Types::Strict::String.optional
+    attribute :last_name, Types::Strict::String
   end
 end

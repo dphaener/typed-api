@@ -1,13 +1,18 @@
 require "graphql"
 
+require_relative "../import"
+
 module Graph
   class Query
-    def initialize(types)
-      types.each { |type| Graph::Query.const_set(type.name, type) }
-    end
+    include Import["persistence.db"]
 
     def call(schema:, query:, variables: {}, context: {})
-      GraphQL::Query.new(schema, query, variables, context).result
+      GraphQL::Query.new(
+        schema.call,
+        query,
+        variables: variables,
+        context: context.merge(db: db)
+      ).result
     end
   end
 end

@@ -1,6 +1,6 @@
 require "dry-validation"
 
-require_relative "predicates"
+require_relative "../predicates"
 
 UserSchema = Dry::Validation.Schema do
   configure do

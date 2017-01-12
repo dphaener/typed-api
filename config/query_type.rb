@@ -1,12 +1,9 @@
 require "graphql"
 
-require_relative "../app/relations/users"
-require_relative "../app/repositories/users"
-
 class QueryType
   def call
     GraphQL::ObjectType.define do
-      name "Query"
+      name "QueryType"
       description "The query root of this schema"
 
       field :users do

@@ -2,7 +2,7 @@ require "rom-repository"
 
 module Repositories
   class Users < ROM::Repository[:users]
-    commands :create, :update
+    commands :create, :update, :destroy
     relations :todos
 
     def all

@@ -27,7 +27,7 @@ module Graph
           target_klass = Module.const_get("::Graph::Container::#{Dry::Core::Inflector.singularize(target).capitalize}Type")
 
           if assoc.result == :many
-            field target do
+            field(target) do
               type -> { types[target_klass] }
               resolve -> (obj, args, ctx) {
                 repo_klass = Module.const_get("Repositories::#{Dry::Core::Inflector.pluralize(target).capitalize}")

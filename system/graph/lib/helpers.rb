@@ -3,6 +3,8 @@ require "dry-auto_inject"
 
 require_relative "register_type"
 require_relative "coerce_type"
+require_relative "register_mutations"
+require_relative "predicates"
 
 module Graph
   class Helpers
@@ -10,6 +12,8 @@ module Graph
 
     register("register_type") { Graph::RegisterType.new }
     register("coerce_type") { Graph::CoerceType.new }
+    register("register_mutations") { Graph::RegisterMutations.new }
+    register("predicates") { Graph::Predicates }
 
     register("explain") do
       -> (schema) { schema.execute GraphQL::Introspection::INTROSPECTION_QUERY }

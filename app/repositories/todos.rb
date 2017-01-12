@@ -2,7 +2,7 @@ require "rom-repository"
 
 module Repositories
   class Todos < ROM::Repository[:todos]
-    commands :create, :update
+    commands :create, :update, :destroy
 
     def all
       todos.to_a

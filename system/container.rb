@@ -1,9 +1,17 @@
 require "dry/system/container"
 
+require_relative "lib/types"
+require_relative "lib/api_type"
+
+repos = Dir["./app/repositories/*"]
+types = Dir["./app/types/*"]
+
+repos.each { |repo| require repo }
+types.each { |type| require type }
+
 class TypedAPI < Dry::System::Container
   configure do |config|
-    # Use to automatically register files and/or directories into the app
-    config.auto_register = %w(lib schema)
+    config.auto_register = %w(lib app/repositories app/types)
 
     load_paths!('lib')
   end

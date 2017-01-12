@@ -1,6 +1,7 @@
 require "graphql"
 
-require_relative "../app/types/user/repository"
+require_relative "../app/relations/users"
+require_relative "../app/repositories/users"
 
 class QueryType
   def call
@@ -11,7 +12,15 @@ class QueryType
       field :users do
         type -> { types[::Graph::Container::UserType] }
         resolve -> (obj, args, ctx) {
-          Repos::User.new(ctx[:db]).all
+          Repositories::Users.new(ctx[:db]).all
+        }
+      end
+
+      field :user do
+        argument :id, types.ID
+        type -> { ::Graph::Container::UserType }
+        resolve -> (obj, args, ctx) {
+          Repositories::Users.new(ctx[:db]).by_id(args[:id])
         }
       end
     end

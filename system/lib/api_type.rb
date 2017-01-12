@@ -1,6 +1,6 @@
 require "dry-struct"
 
-require_relative "base_types"
+require_relative "types"
 
 class ApiType < Dry::Struct::Value
   constructor_type :strict

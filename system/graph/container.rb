@@ -11,7 +11,7 @@ module Graph
 
     Import["persistence.db"]
 
-    TYPES = Dir["./app/types/**/definition.rb"]
+    TYPES = Dir["./app/types/*"]
 
     register("query") { Graph::Query.new }
     register("types") { Graph::Types.new }

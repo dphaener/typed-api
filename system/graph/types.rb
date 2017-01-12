@@ -1,3 +1,5 @@
+require "dry/core/inflector"
+
 require_relative "lib/helpers"
 
 module Graph
@@ -8,8 +10,7 @@ module Graph
       files.each do |type|
         require type
 
-        dirname = File.dirname(type).split("/").last
-        type_name = dirname.capitalize
+        type_name = Dry::Core::Inflector.singularize(File.basename(type, ".rb"))
         graphql_type = register_type.(type_name, coerce_type)
 
         ::Graph::Container.const_set("#{type_name.capitalize}Type", graphql_type)

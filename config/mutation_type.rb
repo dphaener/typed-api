@@ -13,6 +13,10 @@ class MutationType
       field :createTodo, ::Graph::Container::CreateTodoMutation
       field :updateTodo, ::Graph::Container::UpdateTodoMutation
       field :destroyTodo, ::Graph::Container::DestroyTodoMutation
+
+      field :createTodoList, ::Graph::Container::CreateTodoListMutation
+      field :updateTodoList, ::Graph::Container::UpdateTodoListMutation
+      field :destroyTodoList, ::Graph::Container::DestroyTodoListMutation
     end
   end
 end

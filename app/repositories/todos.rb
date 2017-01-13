@@ -8,9 +8,9 @@ module Repositories
       todos.to_a
     end
 
-    def for_user(user_id)
+    def for_todo_list(todo_list_id)
       todos
-        .where(user_id: user_id)
+        .where(todo_list_id: todo_list_id)
         .as(Todo)
         .to_a
     end

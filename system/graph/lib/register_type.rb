@@ -9,12 +9,12 @@ module Graph
 
     def call(type_name, coercer)
       singular_type = Dry::Core::Inflector.singularize(type_name)
-      plural_type = Dry::Core::Inflector.pluralize(type_name)
-      klass = Module.const_get("Relations::#{plural_type.capitalize}")
+      camel_type = Dry::Core::Inflector.camelize(type_name)
+      klass = Module.const_get("Relations::#{Dry::Core::Inflector.pluralize(camel_type)}")
       db_instance = db
 
       GraphQL::ObjectType.define do
-        name "#{type_name.capitalize}Type"
+        name "#{Dry::Core::Inflector.camelize(type_name)}Type"
         description klass.type_description rescue "A #{type_name.capitalize}"
 
         # Register the attributes as GraphQL Fields
@@ -24,13 +24,15 @@ module Graph
 
         # Register the associations as GraphQL Fields
         klass.schema.associations.elements.each do |target, assoc|
-          target_klass = Module.const_get("::Graph::Container::#{Dry::Core::Inflector.singularize(target).capitalize}Type")
+          camel_klass = Dry::Core::Inflector.camelize(target)
+          target_klass = Module.const_get("::Graph::Container::#{Dry::Core::Inflector.singularize(camel_klass)}Type")
 
           if assoc.result == :many
             field(target) do
               type -> { types[target_klass] }
               resolve -> (obj, args, ctx) {
-                repo_klass = Module.const_get("Repositories::#{Dry::Core::Inflector.pluralize(target).capitalize}")
+                camel_klass = Dry::Core::Inflector.camelize(target)
+                repo_klass = Module.const_get("Repositories::#{Dry::Core::Inflector.pluralize(camel_klass)}")
                 repo = repo_klass.new(db_instance)
                 repo.public_send("for_#{singular_type}".to_sym, obj.id)
               }

@@ -3,16 +3,16 @@ require "rom-repository"
 module Repositories
   class Users < ROM::Repository[:users]
     commands :create, :update, :destroy
-    relations :todos
+    relations :todo_lists
 
     def all
-      aggregate(:todos)
+      aggregate(:todo_lists)
         .as(User)
         .to_a
     end
 
     def by_id(id)
-      aggregate(:todos)
+      aggregate(:todo_lists)
         .by_id(id)
         .as(User)
         .one

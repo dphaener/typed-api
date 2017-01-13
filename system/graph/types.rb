@@ -13,12 +13,12 @@ module Graph
         type_name = Dry::Core::Inflector.singularize(File.basename(type, ".rb"))
         graphql_type = register_type.(type_name, coerce_type)
 
-        ::Graph::Container.const_set("#{type_name.capitalize}Type", graphql_type)
+        ::Graph::Container.const_set("#{Dry::Core::Inflector.camelize(type_name)}Type", graphql_type)
 
         create, update, destroy = register_mutations.call(type_name, coerce_type)
-        ::Graph::Container.const_set("Create#{type_name.capitalize}Mutation", create)
-        ::Graph::Container.const_set("Update#{type_name.capitalize}Mutation", update)
-        ::Graph::Container.const_set("Destroy#{type_name.capitalize}Mutation", destroy)
+        ::Graph::Container.const_set("Create#{Dry::Core::Inflector.camelize(type_name)}Mutation", create)
+        ::Graph::Container.const_set("Update#{Dry::Core::Inflector.camelize(type_name)}Mutation", update)
+        ::Graph::Container.const_set("Destroy#{Dry::Core::Inflector.camelize(type_name)}Mutation", destroy)
       end
     end
   end

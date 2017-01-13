@@ -4,7 +4,7 @@ module Relations
   class Todos < ROM::Relation[:sql]
     schema(:todos) do
       attribute :id, Types::Serial
-      attribute :user_id, Types::ForeignKey(:users)
+      attribute :todo_list_id, Types::ForeignKey(:todo_lists)
       attribute :title, Types::Strict::String
       attribute :description, Types::Strict::String
       attribute :complete, Types::Strict::Bool
@@ -12,7 +12,7 @@ module Relations
       primary_key :id
 
       associations do
-        belongs_to :user
+        belongs_to :todo_list
       end
     end
 

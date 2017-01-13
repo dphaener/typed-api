@@ -10,8 +10,9 @@ module Graph
     #include Graph::Helpers::Import["predicates"]
 
     def call(type_name, coercer)
-      return_klass = Module.const_get("::Graph::Container::#{type_name.capitalize}Type")
-      klass = Module.const_get("Relations::#{Dry::Core::Inflector.pluralize(type_name).capitalize}")
+      return_klass = Module.const_get("::Graph::Container::#{Dry::Core::Inflector.camelize(type_name)}Type")
+      camel_klass = Dry::Core::Inflector.camelize(type_name)
+      klass = Module.const_get("Relations::#{Dry::Core::Inflector.pluralize(camel_klass)}")
 
       create = create_mutation(type_name, klass, return_klass, coercer)
       update = update_mutation(type_name, klass, return_klass, coercer)
@@ -38,7 +39,8 @@ module Graph
 
         resolve -> (obj, args, context) {
           params = this.symbolize_keys(args.to_h)
-          repo_klass = Module.const_get("Repositories::#{Dry::Core::Inflector.pluralize(type_name).capitalize}")
+          camel_klass = Dry::Core::Inflector.camelize(type_name)
+          repo_klass = Module.const_get("Repositories::#{Dry::Core::Inflector.pluralize(camel_klass)}")
           repo = repo_klass.new(this.db)
           repo.create(**params)
         }

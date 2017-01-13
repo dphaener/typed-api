@@ -8,5 +8,5 @@ class User < ApiType
   attribute :first_name, Types::Strict::String
   attribute :last_name, Types::Strict::String
 
-  attribute :todos, Types::Strict::Array.member(Todo)
+  attribute :todo_lists, Types::Strict::Array.member(TodoList)
 end

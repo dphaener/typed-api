@@ -19,7 +19,7 @@ module Repositories
     end
 
     def for_user(user_id)
-      todo_lists
+      aggregate(:todos)
         .where(user_id: user_id)
         .as(TodoList)
         .to_a

@@ -20,6 +20,20 @@ class QueryType
           Repositories::Users.new(ctx[:db]).by_id(args[:id])
         }
       end
+
+      field :todos do
+        type -> { types[::Graph::Container::TodoType] }
+        resolve -> (obj, args, ctx) {
+          Repositories::Todos.new(ctx[:db]).all
+        }
+      end
+
+      field :todo_lists do
+        type -> { types[::Graph::Container::TodoListType] }
+        resolve -> (obj, args, ctx) {
+          Repositories::TodoLists.new(ctx[:db]).all
+        }
+      end
     end
   end
 end

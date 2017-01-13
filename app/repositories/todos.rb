@@ -5,7 +5,7 @@ module Repositories
     commands :create, :update, :destroy
 
     def all
-      todos.to_a
+      todos.as(Todo).to_a
     end
 
     def for_todo_list(todo_list_id)

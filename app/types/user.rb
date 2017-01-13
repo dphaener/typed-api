@@ -1,4 +1,4 @@
-require_relative "todo"
+require_relative "todo_list"
 
 class User < ApiType
   description "A user of this todo app"
@@ -8,5 +8,5 @@ class User < ApiType
   attribute :first_name, Types::Strict::String
   attribute :last_name, Types::Strict::String
 
-  attribute :todo_lists, Types::Strict::Array.member(TodoList)
+  attribute :todo_lists, Types::Strict::Array.member(TodoList).default([])
 end

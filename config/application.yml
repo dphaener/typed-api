@@ -1,0 +1,6 @@
+production:
+  foo: bar
+development:
+  foo: baz
+test:
+  foo: barbaz
